@@ -1,0 +1,7 @@
+﻿/.idea/
+/.git/
+*/obj/
+*/bin/
+*.pdb
+*.lnk
+*.user
