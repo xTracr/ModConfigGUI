@@ -14,14 +14,14 @@ using UnityEngine.UI;
 namespace ModConfigGUI.Patches
 {
 
-[HarmonyPatch]
+[HarmonyPatch(typeof(LayerMod))]
 public class PatchLayerMod
 {
     static readonly Dictionary<BaseModPackage, Exception> Exceptions = new Dictionary<BaseModPackage, Exception>();
     static bool _hideExceptionDialog;
 
     [HarmonyTranspiler]
-    [HarmonyPatch(typeof(LayerMod), "OnInit")]
+    [HarmonyPatch("OnInit")]
     public static IEnumerable<CodeInstruction> OnInit_Transpiler(IEnumerable<CodeInstruction> instructions)
     {
         bool inserted = false;
@@ -38,11 +38,11 @@ public class PatchLayerMod
     }
 
     [HarmonyPrefix]
-    [HarmonyPatch(typeof(LayerMod), "OnInit")]
+    [HarmonyPatch("OnInit")]
     public static void OnInit_Prefix() => LangConfig.ReLoad();
 
     [HarmonyPostfix]
-    [HarmonyPatch(typeof(LayerMod), "OnInit")]
+    [HarmonyPatch("OnInit")]
     public static void OnInit_Postfix()
     {
         if (_hideExceptionDialog || Exceptions.Count <= 0) return;
@@ -58,7 +58,7 @@ public class PatchLayerMod
     {
         try
         {
-            if (!ModConfigGUI.Packages.TryGetValue(package, out BaseUnityPlugin plugin)) return;
+            if (!ModConfigGUI.Plugins.TryGetValue(package, out BaseUnityPlugin plugin)) return;
             string guid = plugin.Info.Metadata.GUID;
             ILayerBuilder builder;
             if (LayerBuilder.Builders.TryGetValue(guid, out Func<ILayerBuilder> value)) builder = value();

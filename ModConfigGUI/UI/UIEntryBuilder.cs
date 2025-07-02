@@ -119,7 +119,7 @@ public class UIEntryBuilder
         source.onValueSet.AddListener(str => Value = _supportedType.ToValue(str));
         source.Text.SetText(Name);
         source.Text.color = _nameColor ?? source.Text.color;
-        source.textButton.tooltip = _tooltip;
+        if (!(_tooltip is null)) source.textButton.tooltip = _tooltip;
         _entryType ??= _supportedType.GetDefaultEntryType(_acceptableValue);
         source.SetEntryType(_entryType, _supportedType.GetOptions(_acceptableValue, _defaultValue is null ? null : new[] { _defaultValue }));
         source.Init(_width);

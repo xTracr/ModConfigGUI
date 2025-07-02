@@ -8,8 +8,9 @@ namespace ModConfigGUI.Config
 public class LangConfig : SourceLang<Row>
 {
     static readonly Dictionary<string, LangConfig> LangConfigs = new Dictionary<string, LangConfig>();
-    static string _currnetLang = "";
+    static string _currentLang = "";
     public static readonly LangConfig General = CreateInstance<LangConfig>();
+    public static readonly LangConfig Empty = CreateInstance<LangConfig>();
 
     public static LangConfig GetInstance(string guid)
     {
@@ -19,13 +20,13 @@ public class LangConfig : SourceLang<Row>
 
     public static void ReLoad()
     {
-        if (_currnetLang.Equals(EClass.core.config.lang)) return;
-        _currnetLang = EClass.core.config.lang;
-        string langFile = GetFullLangPath(ModConfigGUI.ModDir, _currnetLang);
+        if (_currentLang.Equals(EClass.core.config.lang)) return;
+        _currentLang = EClass.core.config.lang;
+        string langFile = GetFullLangPath(ModConfigGUI.ModDir, _currentLang);
         if (File.Exists(langFile)) ModUtil.ImportExcel(langFile, "General", General);
-        foreach (KeyValuePair<BaseModPackage, BaseUnityPlugin> pair in ModConfigGUI.Packages)
+        foreach (KeyValuePair<BaseModPackage, BaseUnityPlugin> pair in ModConfigGUI.Plugins)
         {
-            langFile = GetFullLangPath(pair.Key.dirInfo.FullName, _currnetLang);
+            langFile = GetFullLangPath(pair.Key.dirInfo.FullName, _currentLang);
             if (File.Exists(langFile)) ModUtil.ImportExcel(langFile, "Config", GetInstance(pair.Value.Info.Metadata.GUID));
         }
     }

@@ -213,7 +213,7 @@ public class SupportedType
         Func<string, object>? _toValue;
         Func<AcceptableValueBase, string[]?>? _listToOptions;
         Func<AcceptableValueBase, string[]?>? _rangeToOptions;
-        
+
         internal Builder(Type type) => _type = type;
 
         public Builder SetDefaultEntryType(EntryType defaultEntryType)

@@ -11,6 +11,7 @@ namespace ModConfigGUI.UI
 
 public class LayerBuilder : ILayerBuilder
 {
+    static readonly EntryType ErrorEntryType;
     internal static readonly Dictionary<string, Func<ILayerBuilder>> Builders = new Dictionary<string, Func<ILayerBuilder>>();
     protected readonly Dictionary<string, EntryCategory> _categories = new Dictionary<string, EntryCategory>();
     protected string _title = "config";
@@ -22,7 +23,16 @@ public class LayerBuilder : ILayerBuilder
     protected Action? _onSave;
     protected Action? _onLoad;
 
-    LayerBuilder() { }
+    static LayerBuilder()
+    {
+        ErrorEntryType = EntryType.Description.AfterRefresh((uiEntry, uiText, currentValue) =>
+        {
+            uiText.fontSize = 16;
+            uiEntry.textButton.interactable = true;
+        });
+    }
+
+    protected LayerBuilder() { }
 
     public static void RegisterBuilder(string guid, Func<ILayerBuilder> builder) => Builders[guid] = builder;
 
@@ -66,11 +76,7 @@ public class LayerBuilder : ILayerBuilder
                     .SetNameColor(Color.red)
                     .SetTooltip(new TooltipData
                         { enable = true, offset = new Vector3(0, -10), id = "", lang = "", text = exception.GetType().Name + ": " + exception.Message })
-                    .SetEntryType(EntryType.Description.AfterRefresh((uiEntry, uiText, currentValue) =>
-                    {
-                        uiText.fontSize = 16;
-                        uiEntry.textButton.interactable = true;
-                    }));
+                    .SetEntryType(ErrorEntryType);
             }
         }
         return builder;
