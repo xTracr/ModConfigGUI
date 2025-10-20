@@ -7,11 +7,11 @@ namespace ModConfigGUI.Config
 
 public class ConfigGUI
 {
+    static bool DebugEnv => false;
     public readonly ConfigEntry<int> guiWidth;
     public readonly ConfigEntry<int> guiHeight;
     public readonly ConfigEntry<float> widthRatio;
     public readonly ConfigEntry<EntryPointStyle> entryPointStyle;
-    static bool DebugEnv => false;
     ConfigFile Config { get; }
 
     public ConfigGUI(ConfigFile config)

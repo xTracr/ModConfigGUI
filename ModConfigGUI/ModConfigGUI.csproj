@@ -97,6 +97,7 @@
         <Compile Include="Config\ConfigGUI.cs"/>
         <Compile Include="Config\LangConfig.cs"/>
         <Compile Include="Config\SupportedType.cs"/>
+        <Compile Include="Patches\PatchLayerTitle.cs" />
         <Compile Include="UI\EntryType.cs"/>
         <Compile Include="UI\UIHelper.cs"/>
         <Compile Include="UI\LayerBuilder.cs"/>

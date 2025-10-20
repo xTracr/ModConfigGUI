@@ -11,8 +11,6 @@ namespace ModConfigGUI.UI
 
 public class LayerBuilder : ILayerBuilder
 {
-    static readonly EntryType ErrorEntryType;
-    internal static readonly Dictionary<string, Func<ILayerBuilder>> Builders = new Dictionary<string, Func<ILayerBuilder>>();
     protected readonly Dictionary<string, EntryCategory> _categories = new Dictionary<string, EntryCategory>();
     protected string _title = "config";
     protected string? _filePath;
@@ -22,17 +20,16 @@ public class LayerBuilder : ILayerBuilder
     protected int _height = 640;
     protected Action? _onSave;
     protected Action? _onLoad;
-
-    static LayerBuilder()
+    static readonly Dictionary<string, Func<ILayerBuilder>> Builders = new Dictionary<string, Func<ILayerBuilder>>();
+    static readonly EntryType ErrorEntryType = EntryType.Description.AfterRefresh((uiEntry, uiText, currentValue) =>
     {
-        ErrorEntryType = EntryType.Description.AfterRefresh((uiEntry, uiText, currentValue) =>
-        {
-            uiText.fontSize = 16;
-            uiEntry.textButton.interactable = true;
-        });
-    }
+        uiText.fontSize = 16;
+        uiEntry.textButton.interactable = true;
+    });
 
     protected LayerBuilder() { }
+
+    public static IReadOnlyDictionary<string, Func<ILayerBuilder>> GetBuilders() => Builders;
 
     public static void RegisterBuilder(string guid, Func<ILayerBuilder> builder) => Builders[guid] = builder;
 

@@ -58,10 +58,10 @@ public class PatchLayerMod
     {
         try
         {
-            if (!ModConfigGUI.Plugins.TryGetValue(package, out BaseUnityPlugin plugin)) return;
+            if (!ModConfigGUI.GetPlugins().TryGetValue(package, out BaseUnityPlugin plugin)) return;
             string guid = plugin.Info.Metadata.GUID;
             ILayerBuilder builder;
-            if (LayerBuilder.Builders.TryGetValue(guid, out Func<ILayerBuilder> value)) builder = value();
+            if (LayerBuilder.GetBuilders().TryGetValue(guid, out Func<ILayerBuilder> value)) builder = value();
             else
             {
                 ConfigFile configFile = plugin.Config;

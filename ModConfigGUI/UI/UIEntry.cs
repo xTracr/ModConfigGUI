@@ -8,12 +8,12 @@ namespace ModConfigGUI.UI
 
 public class UIEntry : EMono
 {
-    Component _component;
-    EntryType _entryType = EntryType.InputField;
     public readonly UnityEvent<string> onValueSet = new UnityEvent<string>();
     public UIButton textButton;
     public UIButton resetButton;
     public Func<string> valueGetter;
+    Component _component;
+    EntryType _entryType = EntryType.InputField;
     public string[]? Options { get; private set; }
     public UIText Text => textButton.mainText;
 

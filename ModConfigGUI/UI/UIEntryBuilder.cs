@@ -8,7 +8,6 @@ namespace ModConfigGUI.UI
 
 public class UIEntryBuilder
 {
-    object _value;
     protected readonly SupportedType _supportedType;
     protected Color? _nameColor;
     protected int _width = 180;
@@ -18,6 +17,7 @@ public class UIEntryBuilder
     protected AcceptableValueBase? _acceptableValue;
     protected Action<object>? _onSave;
     protected Func<object>? _onLoad;
+    object _value;
     public string Name { get; }
     public object Value
     {

@@ -11,30 +11,31 @@ namespace ModConfigGUI.UI
 
 public static class UIHelper
 {
-    static readonly Transform ClonedObjects;
     public static readonly Texture2D ICONS_48;
+    static readonly Transform ClonedObjects;
+    static readonly Dictionary<string, Type> DeferredResources;
+    static bool _deferredLoaded;
 
     static UIHelper()
     {
         ClonedObjects = new GameObject("Objects Cloned by ModConfigGUI").transform;
         ClonedObjects.SetParent(PoolManager._trans);
         ClonedObjects.SetActive(false);
-        var resources = new Dictionary<string, Type>
+        DeferredResources = new Dictionary<string, Type>
         {
-            ["Layers(Float)"] = typeof(Layer),
             ["button activate"] = typeof(UIButton),
             ["ButtonToggle"] = typeof(UIButton)
         };
-        foreach (KeyValuePair<string, Type> pair in resources)
+        CloneResources(new Dictionary<string, Type>
         {
-            Object? original = Resources.FindObjectsOfTypeAll(pair.Value).FirstOrDefault(o => o.name == pair.Key);
-            if (original is null) continue;
-            Object.Instantiate(original, ClonedObjects).name = original.name;
-        }
+            ["Layers(Float)"] = typeof(Layer)
+        });
         Transform helpTopic = Util.Instantiate<UIItem>("UI/Element/Header/HeaderHelpTopic").transform;
         ICONS_48 = helpTopic.Find("Image").GetComponent<Image>().sprite.texture;
         Object.Destroy(helpTopic.gameObject);
     }
+
+    public static void Init() { }
 
     public static T Create<T>(Transform? parent = null) where T : MonoBehaviour
     {
@@ -43,7 +44,15 @@ public static class UIHelper
         return gameObject.AddComponent<T>();
     }
 
-    public static T GetResource<T>(string? name = null) where T : Component => Object.Instantiate(ClonedObjects.Find<T>(name));
+    public static T GetResource<T>(string? name = null) where T : Component
+    {
+        if (!_deferredLoaded)
+        {
+            CloneResources(DeferredResources);
+            _deferredLoaded = true;
+        }
+        return Object.Instantiate(ClonedObjects.Find<T>(name));
+    }
 
     public static void SetSize(this RectTransform self, Vector2 size)
     {
@@ -90,6 +99,16 @@ public static class UIHelper
         window.GetType().GetMethod("RecalculatePositionCaches", BindingFlags.Instance | BindingFlags.NonPublic)?.Invoke(window, null);
         window.RebuildLayout(true);
         return window;
+    }
+
+    static void CloneResources(Dictionary<string, Type> resources)
+    {
+        foreach (KeyValuePair<string, Type> pair in resources)
+        {
+            Object? original = Resources.FindObjectsOfTypeAll(pair.Value).FirstOrDefault(o => o.name == pair.Key);
+            if (original is null) continue;
+            Object.Instantiate(original, ClonedObjects).name = original.name;
+        }
     }
 }
 
