@@ -8,7 +8,6 @@ namespace ModConfigGUI.Config
 public class LangConfig : SourceLang<Row>
 {
     public static readonly LangConfig General = CreateInstance<LangConfig>();
-    public static readonly LangConfig Empty = CreateInstance<LangConfig>();
     static readonly Dictionary<string, LangConfig> LangConfigs = new Dictionary<string, LangConfig>();
     static string _currentLang = "";
 

@@ -38,7 +38,7 @@ public class SupportedType
 
     static SupportedType()
     {
-        const int count = 100;
+        const int maxCount = 100;
         Bool = CreateBuilder(typeof(bool))
             .SetDefaultEntryType(EntryType.Cycling)
             .SetToString(obj => obj.ToString().ToLowerInvariant())
@@ -51,7 +51,10 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                return bound is null ? null : Enumerable.Range((byte)bound[0], (byte)bound[1] + 1).Select(i => i.ToString()).ToArray();
+                if (bound is null || bound.Length < 2) return null;
+                int lower = (byte)bound[0];
+                int count = (byte)bound[1] - lower + 1;
+                return Enumerable.Range(lower, count).Select(i => i.ToString()).ToArray();
             }).Build();
         SByte = CreateBuilder(typeof(sbyte))
             .SetToString(obj => obj.ToString())
@@ -59,7 +62,10 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                return bound is null ? null : Enumerable.Range((sbyte)bound[0], (sbyte)bound[1] + 1).Select(i => i.ToString()).ToArray();
+                if (bound is null || bound.Length < 2) return null;
+                int lower = (sbyte)bound[0];
+                int count = (sbyte)bound[1] - lower + 1;
+                return Enumerable.Range(lower, count).Select(i => i.ToString()).ToArray();
             }).Build();
         Short = CreateBuilder(typeof(short))
             .SetToString(obj => obj.ToString())
@@ -67,7 +73,10 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                return bound is null ? null : Enumerable.Range((short)bound[0], (short)bound[1] + 1).Select(i => i.ToString()).ToArray();
+                if (bound is null || bound.Length < 2) return null;
+                int lower = (short)bound[0];
+                int count = (short)bound[1] - lower + 1;
+                return Enumerable.Range(lower, count).Select(i => i.ToString()).ToArray();
             }).Build();
         UShort = CreateBuilder(typeof(ushort))
             .SetToString(obj => obj.ToString())
@@ -75,7 +84,10 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                return bound is null ? null : Enumerable.Range((ushort)bound[0], (ushort)bound[1] + 1).Select(i => i.ToString()).ToArray();
+                if (bound is null || bound.Length < 2) return null;
+                int lower = (ushort)bound[0];
+                int count = (ushort)bound[1] - lower + 1;
+                return Enumerable.Range(lower, count).Select(i => i.ToString()).ToArray();
             }).Build();
         Int = CreateBuilder(typeof(int))
             .SetToString(obj => obj.ToString())
@@ -83,7 +95,10 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                return bound is null ? null : Enumerable.Range((int)bound[0], (int)bound[1] + 1).Select(i => i.ToString()).ToArray();
+                if (bound is null || bound.Length < 2) return null;
+                int lower = (int)bound[0];
+                int count = (int)bound[1] - lower + 1;
+                return Enumerable.Range(lower, count).Select(i => i.ToString()).ToArray();
             }).Build();
         UInt = CreateBuilder(typeof(uint))
             .SetToString(obj => obj.ToString())
@@ -91,7 +106,7 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                if (bound is null) return null;
+                if (bound is null || bound.Length < 2) return null;
                 uint lower = (uint)bound[0];
                 uint upper = (uint)bound[1];
                 return Enumerable.Range(0, (int)(upper - lower + 1)).Select(i => (lower + i).ToString()).ToArray();
@@ -102,11 +117,11 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                if (bound is null) return null;
+                if (bound is null || bound.Length < 2) return null;
                 long lower = (long)bound[0];
                 long upper = (long)bound[1];
-                long step = (upper - lower) / count;
-                return Enumerable.Range(0, count + 1).Select(i => (lower + i * step).ToString()).ToArray();
+                long step = (upper - lower) / maxCount;
+                return Enumerable.Range(0, maxCount + 1).Select(i => (lower + i * step).ToString()).ToArray();
             }).Build();
         ULong = CreateBuilder(typeof(ulong))
             .SetToString(obj => obj.ToString())
@@ -114,11 +129,11 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                if (bound is null) return null;
+                if (bound is null || bound.Length < 2) return null;
                 ulong lower = (ulong)bound[0];
                 ulong upper = (ulong)bound[1];
-                ulong step = (upper - lower) / count;
-                return Enumerable.Range(0, count + 1).Select(i => (lower + (ulong)i * step).ToString()).ToArray();
+                ulong step = (upper - lower) / maxCount;
+                return Enumerable.Range(0, maxCount + 1).Select(i => (lower + (ulong)i * step).ToString()).ToArray();
             }).Build();
         Float = CreateBuilder(typeof(float))
             .SetToString(obj => ((float)obj).ToString(NumberFormatInfo.InvariantInfo))
@@ -126,11 +141,11 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                if (bound is null) return null;
+                if (bound is null || bound.Length < 2) return null;
                 float lower = (float)bound[0];
                 float upper = (float)bound[1];
-                float step = (upper - lower) / count;
-                return Enumerable.Range(0, count + 1).Select(i => (lower + i * step).ToString(NumberFormatInfo.InvariantInfo)).ToArray();
+                float step = (upper - lower) / maxCount;
+                return Enumerable.Range(0, maxCount + 1).Select(i => (lower + i * step).ToString(NumberFormatInfo.InvariantInfo)).ToArray();
             }).Build();
         Double = CreateBuilder(typeof(double))
             .SetToString(obj => ((double)obj).ToString(NumberFormatInfo.InvariantInfo))
@@ -138,11 +153,11 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                if (bound is null) return null;
+                if (bound is null || bound.Length < 2) return null;
                 double lower = (double)bound[0];
                 double upper = (double)bound[1];
-                double step = (upper - lower) / count;
-                return Enumerable.Range(0, count + 1).Select(i => (lower + i * step).ToString(NumberFormatInfo.InvariantInfo)).ToArray();
+                double step = (upper - lower) / maxCount;
+                return Enumerable.Range(0, maxCount + 1).Select(i => (lower + i * step).ToString(NumberFormatInfo.InvariantInfo)).ToArray();
             }).Build();
         Decimal = CreateBuilder(typeof(decimal))
             .SetToString(obj => ((decimal)obj).ToString(NumberFormatInfo.InvariantInfo))
@@ -150,11 +165,11 @@ public class SupportedType
             .SetRangeToOptions(acceptableValue =>
             {
                 object[]? bound = acceptableValue.GetBound();
-                if (bound is null) return null;
+                if (bound is null || bound.Length < 2) return null;
                 decimal lower = (decimal)bound[0];
                 decimal upper = (decimal)bound[1];
-                decimal step = (upper - lower) / count;
-                return Enumerable.Range(0, count + 1).Select(i => (lower + i * step).ToString(NumberFormatInfo.InvariantInfo)).ToArray();
+                decimal step = (upper - lower) / maxCount;
+                return Enumerable.Range(0, maxCount + 1).Select(i => (lower + i * step).ToString(NumberFormatInfo.InvariantInfo)).ToArray();
             }).Build();
         foreach (Type type in TomlTypeConverter.GetSupportedTypes()) GetOrCreate(type);
     }
