@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
     <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props"
             Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')"/>
@@ -14,6 +14,8 @@
         <FileAlignment>512</FileAlignment>
         <LangVersion>8</LangVersion>
         <Nullable>enable</Nullable>
+        <!-- 游戏目录路径，请根据实际位置修改 -->
+        <GameDir>$(MSBuildThisFileDirectory)..\..\..\..\SteamLibrary\steamapps\common\Elin</GameDir>
     </PropertyGroup>
     <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
         <PlatformTarget>AnyCPU</PlatformTarget>
@@ -34,62 +36,201 @@
         <ErrorReport>prompt</ErrorReport>
         <WarningLevel>4</WarningLevel>
     </PropertyGroup>
+    <!-- 批量设置所有引用不复制到输出目录 -->
+    <ItemDefinitionGroup>
+        <Reference>
+            <Private>False</Private>
+        </Reference>
+    </ItemDefinitionGroup>
     <ItemGroup>
         <Reference Include="0Harmony">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\BepInEx\core\0Harmony.dll</HintPath>
-            <Private>False</Private>
-        </Reference>
-        <Reference Include="Assembly-CSharp">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Assembly-CSharp.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\BepInEx\core\0Harmony.dll</HintPath>
         </Reference>
         <Reference Include="BepInEx.Core">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\BepInEx\core\BepInEx.Core.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\BepInEx\core\BepInEx.Core.dll</HintPath>
         </Reference>
         <Reference Include="BepInEx.Unity">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\BepInEx\core\BepInEx.Unity.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\BepInEx\core\BepInEx.Unity.dll</HintPath>
+        </Reference>
+        <Reference Include="com.rlabrecque.steamworks.net">
+          <HintPath>$(GameDir)\Elin_Data\Managed\com.rlabrecque.steamworks.net.dll</HintPath>
+        </Reference>
+        <Reference Include="DOTween">
+          <HintPath>$(GameDir)\Elin_Data\Managed\DOTween.dll</HintPath>
+        </Reference>
+        <Reference Include="DOTweenPro">
+          <HintPath>$(GameDir)\Elin_Data\Managed\DOTweenPro.dll</HintPath>
         </Reference>
         <Reference Include="Elin">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Elin.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\Elin.dll</HintPath>
+        </Reference>
+        <Reference Include="Heathen.Steamworks">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Heathen.Steamworks.dll</HintPath>
+        </Reference>
+        <Reference Include="INIFileParser">
+          <HintPath>$(GameDir)\Elin_Data\Managed\INIFileParser.dll</HintPath>
+        </Reference>
+        <Reference Include="Ionic.Zip.Unity">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Ionic.Zip.Unity.dll</HintPath>
+        </Reference>
+        <Reference Include="LZ4">
+          <HintPath>$(GameDir)\Elin_Data\Managed\LZ4.dll</HintPath>
+        </Reference>
+        <Reference Include="Minigame.Basket">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Minigame.Basket.dll</HintPath>
+        </Reference>
+        <Reference Include="Minigame.Blackjack">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Minigame.Blackjack.dll</HintPath>
+        </Reference>
+        <Reference Include="mscorlib">
+          <HintPath>$(GameDir)\Elin_Data\Managed\mscorlib.dll</HintPath>
+        </Reference>
+        <Reference Include="NaturalStringExtensions">
+          <HintPath>$(GameDir)\Elin_Data\Managed\NaturalStringExtensions.dll</HintPath>
+        </Reference>
+        <Reference Include="netstandard">
+          <HintPath>$(GameDir)\Elin_Data\Managed\netstandard.dll</HintPath>
+        </Reference>
+        <Reference Include="Newtonsoft.Json">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Newtonsoft.Json.dll</HintPath>
+        </Reference>
+        <Reference Include="NPOI">
+          <HintPath>$(GameDir)\Elin_Data\Managed\NPOI.dll</HintPath>
+        </Reference>
+        <Reference Include="NPOI.OOXML">
+          <HintPath>$(GameDir)\Elin_Data\Managed\NPOI.OOXML.dll</HintPath>
+        </Reference>
+        <Reference Include="Ookii.Dialogs">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Ookii.Dialogs.dll</HintPath>
         </Reference>
         <Reference Include="Plugins">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.ActorSystem">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.ActorSystem.dll</HintPath>
         </Reference>
         <Reference Include="Plugins.BaseCore">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.BaseCore.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.BaseCore.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.Calc">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.Calc.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.Dungen">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.Dungen.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.Modding">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.Modding.dll</HintPath>
         </Reference>
         <Reference Include="Plugins.NameGen">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.NameGen.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.NameGen.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.NoiseSystem">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.NoiseSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.Sound">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.Sound.dll</HintPath>
+        </Reference>
+        <Reference Include="Plugins.Tween">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.Tween.dll</HintPath>
         </Reference>
         <Reference Include="Plugins.UI">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\Plugins.UI.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.UI.dll</HintPath>
         </Reference>
-        <Reference Include="System"/>
-        <Reference Include="System.Core"/>
-        <Reference Include="System.Data"/>
-        <Reference Include="System.Xml"/>
+        <Reference Include="Plugins.Util">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Plugins.Util.dll</HintPath>
+        </Reference>
+        <Reference Include="Pluralize.NET">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Pluralize.NET.dll</HintPath>
+        </Reference>
+        <Reference Include="Reflex">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Reflex.dll</HintPath>
+        </Reference>
+        <Reference Include="System" />
+        <Reference Include="System.Core" />
+        <Reference Include="System.IO.Compression.FileSystem">
+          <HintPath>$(GameDir)\Elin_Data\Managed\System.IO.Compression.FileSystem.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Memory">
+          <HintPath>$(GameDir)\Elin_Data\Managed\System.Memory.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Numerics">
+          <HintPath>$(GameDir)\Elin_Data\Managed\System.Numerics.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Security">
+          <HintPath>$(GameDir)\Elin_Data\Managed\System.Security.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Windows.Forms">
+          <HintPath>$(GameDir)\Elin_Data\Managed\System.Windows.Forms.dll</HintPath>
+        </Reference>
+        <Reference Include="System.Xml" />
+        <Reference Include="UniTask">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UniTask.dll</HintPath>
+        </Reference>
+        <Reference Include="Unity.TextMeshPro">
+          <HintPath>$(GameDir)\Elin_Data\Managed\Unity.TextMeshPro.dll</HintPath>
+        </Reference>
         <Reference Include="UnityEngine">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AnimationModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.AnimationModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AssetBundleModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.AssetBundleModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.AudioModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.AudioModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.CoreModule">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.CoreModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.GridModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.GridModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ImageConversionModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.ImageConversionModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.IMGUIModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.IMGUIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.InputLegacyModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.InputLegacyModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ParticleSystemModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.ParticleSystemModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.Physics2DModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.Physics2DModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.PhysicsModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.PhysicsModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.ScreenCaptureModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.ScreenCaptureModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.SharedInternalsModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.SharedInternalsModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.SpriteShapeModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.SpriteShapeModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.TextRenderingModule">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.TextRenderingModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.TilemapModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.TilemapModule.dll</HintPath>
         </Reference>
         <Reference Include="UnityEngine.UI">
-            <HintPath>..\..\..\..\SteamLibrary\steamapps\common\Elin\Elin_Data\Managed\UnityEngine.UI.dll</HintPath>
-            <Private>False</Private>
+            <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.UI.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UIModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.UIModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestAudioModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.UnityWebRequestAudioModule.dll</HintPath>
+        </Reference>
+        <Reference Include="UnityEngine.UnityWebRequestModule">
+          <HintPath>$(GameDir)\Elin_Data\Managed\UnityEngine.UnityWebRequestModule.dll</HintPath>
         </Reference>
     </ItemGroup>
     <ItemGroup>
