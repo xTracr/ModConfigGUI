@@ -66,7 +66,7 @@ public class PatchLayerMod
             {
                 ConfigFile configFile = plugin.Config;
                 if (configFile.Keys.Count == 0) return;
-                builder = LayerBuilder.CreateDefault(package.title, LangConfig.GetInstance(guid), configFile);
+                builder = LayerBuilder.CreateDefault(guid, package.title, configFile);
             }
             item.buttonActivate.onClick.AddListener(() =>
             {

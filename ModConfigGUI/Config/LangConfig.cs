@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using BepInEx;
 
@@ -10,6 +11,7 @@ public class LangConfig : SourceLang<Row>
     static readonly Dictionary<string, LangConfig> LangConfigs = new Dictionary<string, LangConfig>();
     static string _currentLang = "";
 
+    [Obsolete("ModUtil.ImportExcel is obsolete")]
     public static LangConfig GetInstance(string guid)
     {
         if (LangConfigs.TryGetValue(guid, out LangConfig instance)) return instance;

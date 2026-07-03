@@ -34,10 +34,14 @@ public class LayerBuilder : ILayerBuilder
     public static void RegisterBuilder(string guid, Func<ILayerBuilder> builder) => Builders[guid] = builder;
 
     public static void RegisterDefaultBuilder(string guid, string name, ConfigFile configFile) =>
-        RegisterBuilder(guid, () => CreateDefault(name, LangConfig.GetInstance(guid), configFile));
+        RegisterBuilder(guid, () => CreateDefault(guid, name, configFile));
 
     public static ILayerBuilder Create() => new LayerBuilder();
 
+    public static ILayerBuilder CreateDefault(string guid, string name, ConfigFile configFile) =>
+        CreateDefault(name, LangConfig.GetInstance(guid), configFile);
+
+    [Obsolete("use CreateDefault(guid, title, configFile) instead")]
     public static ILayerBuilder CreateDefault(string title, LangConfig langConfig, ConfigFile configFile)
     {
         int width = ModConfigGUI.ConfigGUI.guiWidth.Value;

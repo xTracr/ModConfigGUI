@@ -37,7 +37,7 @@ public class ConfigGUI
 
     public ILayerBuilder CreateLayerBuilder(string guid, string name)
     {
-        ILayerBuilder builder = LayerBuilder.CreateDefault(name, LangConfig.GetInstance(guid), Config);
+        ILayerBuilder builder = LayerBuilder.CreateDefault(guid, name, Config);
         builder.GetOrCreateCategory(widthRatio.Definition.Section).TryGetEntry(widthRatio.Definition.Key)?.SetEntryType(EntryType.Slider);
         return builder;
     }
