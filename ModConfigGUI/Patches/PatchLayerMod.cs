@@ -46,9 +46,9 @@ public class PatchLayerMod
     public static void OnInit_Postfix()
     {
         if (_hideExceptionDialog || Exceptions.Count <= 0) return;
-        Dialog.YesNo(Exceptions.Aggregate(LangConfig.General.GetText("genEntryPointFailed"),
+        Dialog.YesNo(Exceptions.Aggregate(Lang.Get(ModConfigGUI.GetLangId("entry_point_failed")),
                 (current, pair) => current + "\n[" + pair.Key.title + "] " + pair.Value.GetType().Name + ": " + pair.Value.Message),
-            () => _hideExceptionDialog = true, langYes: LangConfig.General.GetText("hideHint"), langNo: "ok");
+            () => _hideExceptionDialog = true, langYes: ModConfigGUI.GetLangId("hide_hint"), langNo: "ok");
         Exceptions.Clear();
     }
 

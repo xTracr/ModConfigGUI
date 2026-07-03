@@ -51,7 +51,7 @@ public class LayerModConfig : ELayer
 
     public override void OnKill()
     {
-        if (!Saved) Dialog.YesNo(LangConfig.General.GetText("notSaved"), Save);
+        if (!Saved) Dialog.YesNo(ModConfigGUI.GetLangId("not_saved"), Save);
         base.OnKill();
     }
 }

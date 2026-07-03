@@ -15,12 +15,14 @@ public class ModConfigGUI : BaseUnityPlugin
 {
     public const string GUID = "me.xtracr.modconfiggui";
     public const string Name = "Mod Config GUI";
-    public const string Version = "0.1.18";
+    public const string Version = "0.1.19";
     static readonly Dictionary<BaseModPackage, BaseUnityPlugin> Plugins = new Dictionary<BaseModPackage, BaseUnityPlugin>();
     public static string ModDir { get; private set; } = "";
     public static ConfigGUI ConfigGUI { get; private set; }
 
     public static IReadOnlyDictionary<BaseModPackage, BaseUnityPlugin> GetPlugins() => Plugins;
+
+    public static string GetLangId(string name) => GUID + "." + name;
 
     void Awake() { new Harmony(GUID).PatchAll(); }
 
@@ -31,7 +33,7 @@ public class ModConfigGUI : BaseUnityPlugin
         LayerBuilder.RegisterBuilder(GUID, () => ConfigGUI.CreateLayerBuilder(GUID, Name));
 
         BaseUnityPlugin[] plugins = ModManager.ListPluginObject.OfType<BaseUnityPlugin>().ToArray();
-        foreach (BaseModPackage package in EClass.core.mods.packages)
+        foreach (BaseModPackage package in ModManager.Instance.packages)
         {
             BaseUnityPlugin? plugin = plugins.FirstOrDefault(p => p.Info.Location.Contains(package.dirInfo.FullName));
             if (plugin is null) continue;

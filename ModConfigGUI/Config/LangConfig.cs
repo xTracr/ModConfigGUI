@@ -7,7 +7,6 @@ namespace ModConfigGUI.Config
 
 public class LangConfig : SourceLang<Row>
 {
-    public static readonly LangConfig General = CreateInstance<LangConfig>();
     static readonly Dictionary<string, LangConfig> LangConfigs = new Dictionary<string, LangConfig>();
     static string _currentLang = "";
 
@@ -21,11 +20,9 @@ public class LangConfig : SourceLang<Row>
     {
         if (_currentLang.Equals(EClass.core.config.lang)) return;
         _currentLang = EClass.core.config.lang;
-        string langFile = GetFullLangPath(ModConfigGUI.ModDir, _currentLang);
-        if (File.Exists(langFile)) ModUtil.ImportExcel(langFile, "General", General);
         foreach (KeyValuePair<BaseModPackage, BaseUnityPlugin> pair in ModConfigGUI.GetPlugins())
         {
-            langFile = GetFullLangPath(pair.Key.dirInfo.FullName, _currentLang);
+            string langFile = GetFullLangPath(pair.Key.dirInfo.FullName, _currentLang);
             if (File.Exists(langFile)) ModUtil.ImportExcel(langFile, "Config", GetInstance(pair.Value.Info.Metadata.GUID));
         }
     }
