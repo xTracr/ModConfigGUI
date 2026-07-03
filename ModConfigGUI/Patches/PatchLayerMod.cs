@@ -52,9 +52,9 @@ public class PatchLayerMod
         Exceptions.Clear();
     }
 
-    public static Action<BaseModPackage, ItemMod> CombineOnInstantiate(Action<BaseModPackage, ItemMod> original) => original + OnInit_OnInstantiate_Postfix;
+    public static Action<ModPackage, ItemMod> CombineOnInstantiate(Action<ModPackage, ItemMod> original) => original + OnInit_OnInstantiate_Postfix;
 
-    static void OnInit_OnInstantiate_Postfix(BaseModPackage package, ItemMod item)
+    static void OnInit_OnInstantiate_Postfix(ModPackage package, ItemMod item)
     {
         try
         {

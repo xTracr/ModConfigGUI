@@ -15,7 +15,7 @@ public class ModConfigGUI : BaseUnityPlugin
 {
     public const string GUID = "me.xtracr.modconfiggui";
     public const string Name = "Mod Config GUI";
-    public const string Version = "0.1.17";
+    public const string Version = "0.1.18";
     static readonly Dictionary<BaseModPackage, BaseUnityPlugin> Plugins = new Dictionary<BaseModPackage, BaseUnityPlugin>();
     public static string ModDir { get; private set; } = "";
     public static ConfigGUI ConfigGUI { get; private set; }
