@@ -14,6 +14,7 @@ namespace ModConfigGUI
 public class ModConfigGUI : BaseUnityPlugin
 {
     public const string GUID = "me.xtracr.modconfiggui";
+    public const string ModId = "xtracr_modconfiggui";
     public const string Name = "Mod Config GUI";
     public const string Version = "0.1.19";
     static readonly Dictionary<BaseModPackage, BaseUnityPlugin> Plugins = new Dictionary<BaseModPackage, BaseUnityPlugin>();
@@ -22,7 +23,7 @@ public class ModConfigGUI : BaseUnityPlugin
 
     public static IReadOnlyDictionary<BaseModPackage, BaseUnityPlugin> GetPlugins() => Plugins;
 
-    public static string GetLangId(string name) => GUID + "." + name;
+    public static string GetLangId(string name) => ModId + "." + name;
 
     void Awake() { new Harmony(GUID).PatchAll(); }
 
