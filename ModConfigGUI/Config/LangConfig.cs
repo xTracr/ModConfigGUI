@@ -29,7 +29,7 @@ public class LangConfig : SourceLang<Row>
         }
     }
 
-    public static string GetFullLangPath(string modDir, string lang)
+    static string GetFullLangPath(string modDir, string lang)
     {
         string langPath = Path.Combine(modDir, "LangConfig", lang + ".xlsx");
         return File.Exists(langPath) ? langPath : Path.Combine(modDir, "LangConfig", "EN.xlsx");

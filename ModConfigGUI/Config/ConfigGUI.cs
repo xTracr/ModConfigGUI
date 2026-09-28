@@ -8,21 +8,21 @@ namespace ModConfigGUI.Config
 public class ConfigGUI
 {
     static bool DebugEnv => false;
+    public readonly ConfigEntry<bool> legacyGUI;
     public readonly ConfigEntry<int> guiWidth;
     public readonly ConfigEntry<int> guiHeight;
     public readonly ConfigEntry<float> widthRatio;
-    public readonly ConfigEntry<EntryPointStyle> entryPointStyle;
     ConfigFile Config { get; }
 
     public ConfigGUI(ConfigFile config)
     {
         Config = config;
         const string guiProperties = "GUIProperties";
-        guiWidth = config.Bind(guiProperties, "Width", 480);
-        guiHeight = config.Bind(guiProperties, "Height", 640);
+        legacyGUI = config.Bind(guiProperties, "legacyGUI", false, new ConfigDescription("When enabled, this mod provides config GUIs for mods instead of the official config GUI.\nThis restores the behavior from before official GUI support was added.\nEnable only if you prefer the old behavior or the official GUI causes issues.\nDefault: off."));
+        guiWidth = config.Bind(guiProperties, "Width", 640);
+        guiHeight = config.Bind(guiProperties, "Height", 800);
         var widthRatioList = new AcceptableValueList<float>(0.3f, 0.35f, 0.4f, 0.45f, 0.5f, 0.55f, 0.6f);
         widthRatio = config.Bind(guiProperties, "WidthRatio", 0.4f, new ConfigDescription("The width ratio of the entrys to the window.", widthRatioList));
-        entryPointStyle = config.Bind(guiProperties, "EntryPointStyle", EntryPointStyle.MapTool);
         if (!DebugEnv) return;
         config.Bind("Test1", "String", "A String");
         config.Bind("Test1", "Int", 123, "This is a integer\nwith a newline.");
@@ -40,16 +40,6 @@ public class ConfigGUI
         ILayerBuilder builder = LayerBuilder.CreateDefault(guid, name, Config);
         builder.GetOrCreateCategory(widthRatio.Definition.Section).TryGetEntry(widthRatio.Definition.Key)?.SetEntryType(EntryType.Slider);
         return builder;
-    }
-
-    public enum EntryPointStyle
-    {
-        NoIcon,
-        Gear,
-        MapTool,
-        SelectBox,
-        System,
-        ToggleLog
     }
 }
 

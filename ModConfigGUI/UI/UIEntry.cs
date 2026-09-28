@@ -40,7 +40,7 @@ public class UIEntry : EMono
         textButton.gameObject.AddComponent<LayoutElement>().flexibleWidth = 1.0f;
         textButton.Rect().SetPivot(0.5f, 0.5f);
         textButton.interactable = true;
-        textButton.mainText.transform.position = new Vector3(50, 0, 0);
+        textButton.mainText.rectTransform.anchoredPosition = new Vector2(20, 0);
         resetButton = UIHelper.GetResource<UIButton>("ButtonToggle");
         resetButton.transform.SetParent(transform);
         resetButton.gameObject.AddComponent<LayoutElement>().preferredWidth = 36;

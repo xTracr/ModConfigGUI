@@ -18,8 +18,9 @@ public class ModConfigGUI : BaseUnityPlugin
     public const string Name = "Mod Config GUI";
     public const string Version = "0.1.19";
     static readonly Dictionary<BaseModPackage, BaseUnityPlugin> Plugins = new Dictionary<BaseModPackage, BaseUnityPlugin>();
-    public static string ModDir { get; private set; } = "";
     public static ConfigGUI ConfigGUI { get; private set; }
+
+    public ModConfigGUI() => ConfigGUI = new ConfigGUI(Config);
 
     public static IReadOnlyDictionary<BaseModPackage, BaseUnityPlugin> GetPlugins() => Plugins;
 
@@ -29,8 +30,6 @@ public class ModConfigGUI : BaseUnityPlugin
 
     void Start()
     {
-        ModDir = Path.GetDirectoryName(Info.Location) ?? "";
-        ConfigGUI = new ConfigGUI(new ConfigFile(Path.Combine(Paths.ConfigPath, "modconfiggui.cfg"), true, Info.Metadata));
         LayerBuilder.RegisterBuilder(GUID, () => ConfigGUI.CreateLayerBuilder(GUID, Name));
 
         BaseUnityPlugin[] plugins = ModManager.ListPluginObject.OfType<BaseUnityPlugin>().ToArray();
