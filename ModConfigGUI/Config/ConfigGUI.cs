@@ -18,7 +18,7 @@ public class ConfigGUI
     {
         Config = config;
         const string guiProperties = "GUIProperties";
-        legacyGUI = config.Bind(guiProperties, "legacyGUI", false, new ConfigDescription("When enabled, this mod provides config GUIs for mods instead of the official config GUI.\nThis restores the behavior from before official GUI support was added.\nEnable only if you prefer the old behavior or the official GUI causes issues.\nDefault: off."));
+        legacyGUI = config.Bind(guiProperties, "LegacyGUI", false, new ConfigDescription("When enabled, this mod provides config GUIs for mods instead of the official config GUI.\nThis restores the behavior from before official GUI support was added.\nEnable only if you prefer the old behavior or the official GUI causes issues.\nDefault: off."));
         guiWidth = config.Bind(guiProperties, "Width", 640);
         guiHeight = config.Bind(guiProperties, "Height", 800);
         var widthRatioList = new AcceptableValueList<float>(0.3f, 0.35f, 0.4f, 0.45f, 0.5f, 0.55f, 0.6f);

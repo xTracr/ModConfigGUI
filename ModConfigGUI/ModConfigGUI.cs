@@ -1,8 +1,6 @@
 ﻿using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using BepInEx;
-using BepInEx.Configuration;
 using HarmonyLib;
 using ModConfigGUI.Config;
 using ModConfigGUI.UI;
@@ -16,7 +14,7 @@ public class ModConfigGUI : BaseUnityPlugin
     public const string GUID = "me.xtracr.modconfiggui";
     public const string ModId = "xtracr_modconfiggui";
     public const string Name = "Mod Config GUI";
-    public const string Version = "0.1.19";
+    public const string Version = "0.2.0";
     static readonly Dictionary<BaseModPackage, BaseUnityPlugin> Plugins = new Dictionary<BaseModPackage, BaseUnityPlugin>();
     public static ConfigGUI ConfigGUI { get; private set; }
 

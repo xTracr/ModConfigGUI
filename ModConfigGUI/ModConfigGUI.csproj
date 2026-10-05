@@ -56,7 +56,7 @@
       <HintPath>$(GameDir)\Elin_Data\Managed\Elin.dll</HintPath>
     </Reference>
     <Reference Include="ElinModdingKit">
-      <HintPath>>$(GameDir)\Package\_ModdingKit\ElinModdingKit.dll</HintPath>
+      <HintPath>$(GameDir)\Package\_ModdingKit\ElinModdingKit.dll</HintPath>
     </Reference>
     <Reference Include="Heathen.Steamworks">
       <HintPath>$(GameDir)\Elin_Data\Managed\Heathen.Steamworks.dll</HintPath>
@@ -144,7 +144,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Collections.Immutable">
-      <HintPath>>$(GameDir)\Package\_ModdingKit\System.Collections.Immutable.dll</HintPath>
+      <HintPath>$(GameDir)\Package\_ModdingKit\System.Collections.Immutable.dll</HintPath>
     </Reference>
     <Reference Include="System.Configuration">
       <HintPath>$(GameDir)\Elin_Data\Managed\System.Configuration.dll</HintPath>
